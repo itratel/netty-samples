@@ -1,19 +1,23 @@
-package com.itratel.netty.firstdemo;
+package com.itratel.netty.fourthheartbit;
 
+import com.itratel.netty.thirdchat.MyChatServerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.logging.LoggingHandler;
 
 /***
- * 第一个netty服务器
- * <p>FirstNettyServer</p>
+ * <p>
+ *    MyHeartBitServer
+ * </p>
  * @author whd.java@gmail.com
- * @date 2021/01/16 22:56
+ * @date 2021/1/24 10:21
  * @since 1.0.0
  */
-public class FirstNettyServer {
+public class MyHeartBitServer {
+
 
     public static void main(String[] args) throws InterruptedException {
         startServer();
@@ -29,13 +33,16 @@ public class FirstNettyServer {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             serverBootstrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
-                    .childHandler(new FirstServerInitializer());
+                    //handler是针对bossGroup来讲的
+                    .handler(new LoggingHandler())
+                    //childHandler是针对workerGroup来讲的
+                    .childHandler(new MyHeartBitServerInitializer());
             System.out.println("服务监听端口在: 8888");
             ChannelFuture channelFuture = serverBootstrap.bind(8888).sync();
             channelFuture.channel().closeFuture().sync();
         } finally {
-          bossGroup.shutdownGracefully();
-          workerGroup.shutdownGracefully();
+            bossGroup.shutdownGracefully();
+            workerGroup.shutdownGracefully();
         }
     }
 }

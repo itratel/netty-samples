@@ -1,8 +1,6 @@
-package com.itratel.netty.thirddemo;
+package com.itratel.netty.thirdchat;
 
 import io.netty.channel.*;
-
-import java.time.LocalDateTime;
 
 /***
  * <p>

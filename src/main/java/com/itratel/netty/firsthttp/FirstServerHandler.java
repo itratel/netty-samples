@@ -1,4 +1,4 @@
-package com.itratel.netty.firstdemo;
+package com.itratel.netty.firsthttp;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

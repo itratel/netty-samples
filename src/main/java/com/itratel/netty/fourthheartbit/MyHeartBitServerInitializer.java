@@ -1,6 +1,6 @@
-package com.itratel.netty.thirddemo;
+package com.itratel.netty.fourthheartbit;
 
-import com.itratel.netty.seconddemo.SecondClientHandler;
+import com.itratel.netty.thirdchat.MyChatServerHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
@@ -8,21 +8,22 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.Delimiters;
-import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
-import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.CharsetUtil;
+
+import java.util.concurrent.TimeUnit;
 
 /***
  * <p>
- *    MyClientInitializer
+ *    MyHeartBitServerInitializer
  * </p>
  * @author whd.java@gmail.com
- * @date 2021/1/20 22:57
+ * @date 2021/1/24 10:21
  * @since 1.0.0
  */
-public class MyChatClientInitializer extends ChannelInitializer<SocketChannel> {
+public class MyHeartBitServerInitializer extends ChannelInitializer<SocketChannel> {
 
     /**
      * This method will be called once the {@link Channel} was registered. After the method returns this instance
@@ -36,9 +37,8 @@ public class MyChatClientInitializer extends ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
-        pipeline.addLast("delimiterBasedFrameDecoder", new DelimiterBasedFrameDecoder(4096, Delimiters.lineDelimiter()));
-        pipeline.addLast("stringDecoder", new StringDecoder(CharsetUtil.UTF_8));
-        pipeline.addLast("stringEncoder",new StringEncoder(CharsetUtil.UTF_8));
-        pipeline.addLast("myChatClientHandler", new MyChatClientHandler());
+        pipeline.addLast("idleStateHandler", new IdleStateHandler(
+                5,7,10, TimeUnit.SECONDS));
+        pipeline.addLast("myHeartBitServerHandler", new MyHeartBitServerHandler());
     }
 }

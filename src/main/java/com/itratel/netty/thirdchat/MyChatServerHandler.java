@@ -1,12 +1,9 @@
-package com.itratel.netty.thirddemo;
+package com.itratel.netty.thirdchat;
 
 import io.netty.channel.*;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
-import io.netty.util.concurrent.EventExecutor;
 import io.netty.util.concurrent.GlobalEventExecutor;
-
-import java.util.UUID;
 
 /***
  * <p>

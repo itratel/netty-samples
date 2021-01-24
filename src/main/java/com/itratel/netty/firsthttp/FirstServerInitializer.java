@@ -1,4 +1,4 @@
-package com.itratel.netty.firstdemo;
+package com.itratel.netty.firsthttp;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;

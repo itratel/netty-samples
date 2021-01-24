@@ -1,6 +1,5 @@
-package com.itratel.netty.thirddemo;
+package com.itratel.netty.firsthttp;
 
-import com.itratel.netty.seconddemo.SecondServerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
@@ -8,15 +7,13 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /***
- * <p>
- *    MyChatServer
- * </p>
+ * 第一个netty服务器
+ * <p>FirstNettyServer</p>
  * @author whd.java@gmail.com
- * @date 2021/1/21 22:21
+ * @date 2021/01/16 22:56
  * @since 1.0.0
  */
-public class MyChatServer {
-
+public class FirstNettyServer {
 
     public static void main(String[] args) throws InterruptedException {
         startServer();
@@ -32,13 +29,13 @@ public class MyChatServer {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             serverBootstrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
-                    .childHandler(new MyChatServerInitializer());
+                    .childHandler(new FirstServerInitializer());
             System.out.println("服务监听端口在: 8888");
             ChannelFuture channelFuture = serverBootstrap.bind(8888).sync();
             channelFuture.channel().closeFuture().sync();
         } finally {
-            bossGroup.shutdownGracefully();
-            workerGroup.shutdownGracefully();
+          bossGroup.shutdownGracefully();
+          workerGroup.shutdownGracefully();
         }
     }
 }
