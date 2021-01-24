@@ -6,6 +6,7 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
 /***
@@ -34,7 +35,7 @@ public class MyHeartBitServer {
             serverBootstrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     //handler是针对bossGroup来讲的
-                    .handler(new LoggingHandler())
+                    .handler(new LoggingHandler(LogLevel.INFO))
                     //childHandler是针对workerGroup来讲的
                     .childHandler(new MyHeartBitServerInitializer());
             System.out.println("服务监听端口在: 8888");

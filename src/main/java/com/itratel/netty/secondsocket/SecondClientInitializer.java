@@ -1,4 +1,4 @@
-package com.itratel.netty.seconddemo;
+package com.itratel.netty.secondsocket;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
