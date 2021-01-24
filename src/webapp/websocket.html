@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>websocket-demo</title>
+</head>
+
+<script type="text/javascript">
+    let socket;
+    if (!window.WebSocket) {
+        alert('浏览器不支持websocket!')
+    }
+    //创建一个websocket
+    socket = new WebSocket("ws://localhost:8888/ws");
+    /***
+     * 当客户端首都奥服务端数据的时候，就会调用
+     * @param event 回调事件
+     */
+    socket.onmessage = function (event) {
+        let $res = document.getElementById('responseText')
+        $res.value = $res.value + "\n" + event.data;
+    }
+
+    /***
+     * 当客户端首都奥服务端数据的时候，就会调用
+     * @param event 回调事件
+     */
+    socket.onopen = function (event) {
+        let $res = document.getElementById('responseText')
+        $res.value = '连接开启！';
+    }
+
+    /***
+     * 当客户端首断开来凝结是
+     * @param event 回调事件
+     */
+    socket.onclose = function (event) {
+        let $res = document.getElementById('responseText')
+        $res.value = $res.value + '\n' + '连接断开！';
+    }
+
+    /***
+     * 发送消息
+     * @param message message
+     */
+    function sendMsg(message) {
+        if (!window.WebSocket) {
+            return;
+        }
+
+        if (socket.readyState === WebSocket.OPEN) {
+            socket.send(message);
+        } else {
+            alert('连接尚未开启！')
+        }
+    }
+</script>
+
+<body>
+    <form onsubmit="return false;">
+        <!-- 用于客户端输入的输入框 -->
+        <textarea name="message" style="width: 400px; height: 200px"></textarea>
+
+        <input type="button" value="发送数据" onclick="sendMsg(this.form.message.value)">
+
+        <h3>服务端的输出：</h3>
+        <textarea id="responseText" style="width: 400px; height: 300px"></textarea>
+
+        <input name="" type="button" onclick="javascript: document.getElementById('responseText').value=''" value="清空">
+    </form>
+</body>
+</html>
