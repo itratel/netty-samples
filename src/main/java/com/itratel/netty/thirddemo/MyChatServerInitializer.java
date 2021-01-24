@@ -16,7 +16,7 @@ import io.netty.util.CharsetUtil;
 
 /***
  * <p>
- *    SecondServerInitializer
+ *    MyChatServerInitializer
  * </p>
  * @author whd.java@gmail.com
  * @date 2021/1/17 13:41
@@ -39,6 +39,6 @@ public class MyChatServerInitializer extends ChannelInitializer<SocketChannel> {
         pipeline.addLast("delimiterBasedFrameDecoder", new DelimiterBasedFrameDecoder(4096, Delimiters.lineDelimiter()));
         pipeline.addLast("stringDecoder", new StringDecoder(CharsetUtil.UTF_8));
         pipeline.addLast("stringEncoder",new StringEncoder(CharsetUtil.UTF_8));
-        pipeline.addLast("myChatServerHandler", new MyChatServerInitializer());
+        pipeline.addLast("myChatServerHandler", new MyChatServerHandler());
     }
 }
