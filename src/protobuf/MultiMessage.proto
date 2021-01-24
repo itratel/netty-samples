@@ -1,0 +1,45 @@
+syntax = "proto2";
+
+package com.itratel.netty;
+
+option optimize_for = SPEED;
+option java_package = "com.itratel.netty.sixthprotobuf";
+option java_outer_classname = "ProtoBufData";
+
+message MultiMessage {
+
+  //枚举值
+  enum DataType {
+    PERSON_TYPE = 1;
+    TIGER_TYPE = 2;
+    LION_TYPE = 3;
+  }
+  //枚举的消息类型是相同的
+  required DataType data_type = 1;
+
+  oneof dataBody {
+    Person person = 2;
+    Tiger tiger = 3;
+    Lion lion = 4;
+  }
+
+}
+
+//这里定义三个消息类型
+message Person {
+  optional string name = 1;
+  optional int32 age = 2;
+  optional string address = 3;
+}
+
+message Tiger {
+  optional string name = 1;
+  optional int32 age = 2;
+  optional string live_address = 3;
+}
+
+message Lion {
+  optional string name = 1;
+  optional int32 age = 2;
+  optional string live_address = 3;
+}
